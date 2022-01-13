@@ -257,6 +257,7 @@ currently have the query file implemented. Contributions are welcome !</p>
 <tr><td><code>f</code></td><td>Find next char</td><td><code>find_next_char</code></td></tr>
 <tr><td><code>T</code></td><td>Find 'till previous char</td><td><code>till_prev_char</code></td></tr>
 <tr><td><code>F</code></td><td>Find previous char</td><td><code>find_prev_char</code></td></tr>
+<tr><td><code>G</code></td><td>Go to line number <code>&lt;n&gt;</code></td><td><code>goto_line</code></td></tr>
 <tr><td><code>Alt-.</code></td><td>Repeat last motion (<code>f</code>, <code>t</code> or <code>m</code>)</td><td><code>repeat_last_motion</code></td></tr>
 <tr><td><code>Home</code></td><td>Move to the start of the line</td><td><code>goto_line_start</code></td></tr>
 <tr><td><code>End</code></td><td>Move to the end of the line</td><td><code>goto_line_end</code></td></tr>
@@ -589,13 +590,14 @@ specific indent settings, etc see the default
 <tr><td>elixir</td><td>✓</td><td></td><td></td><td><code>elixir-ls</code></td></tr>
 <tr><td>fish</td><td>✓</td><td>✓</td><td>✓</td><td></td></tr>
 <tr><td>git-commit</td><td>✓</td><td></td><td></td><td></td></tr>
+<tr><td>git-config</td><td>✓</td><td></td><td></td><td></td></tr>
 <tr><td>git-diff</td><td>✓</td><td></td><td></td><td></td></tr>
 <tr><td>git-rebase</td><td>✓</td><td></td><td></td><td></td></tr>
 <tr><td>glsl</td><td>✓</td><td></td><td>✓</td><td></td></tr>
 <tr><td>go</td><td>✓</td><td>✓</td><td>✓</td><td><code>gopls</code></td></tr>
 <tr><td>html</td><td>✓</td><td></td><td></td><td></td></tr>
 <tr><td>java</td><td>✓</td><td></td><td></td><td></td></tr>
-<tr><td>javascript</td><td>✓</td><td></td><td>✓</td><td></td></tr>
+<tr><td>javascript</td><td>✓</td><td></td><td>✓</td><td><code>typescript-language-server</code></td></tr>
 <tr><td>json</td><td>✓</td><td></td><td>✓</td><td></td></tr>
 <tr><td>julia</td><td>✓</td><td></td><td></td><td><code>julia</code></td></tr>
 <tr><td>latex</td><td>✓</td><td></td><td></td><td></td></tr>
@@ -604,6 +606,7 @@ specific indent settings, etc see the default
 <tr><td>llvm-mir</td><td>✓</td><td>✓</td><td>✓</td><td></td></tr>
 <tr><td>llvm-mir-yaml</td><td>✓</td><td></td><td>✓</td><td></td></tr>
 <tr><td>lua</td><td>✓</td><td></td><td>✓</td><td></td></tr>
+<tr><td>make</td><td>✓</td><td></td><td></td><td></td></tr>
 <tr><td>markdown</td><td>✓</td><td></td><td></td><td></td></tr>
 <tr><td>mint</td><td></td><td></td><td></td><td><code>mint</code></td></tr>
 <tr><td>nix</td><td>✓</td><td></td><td>✓</td><td><code>rnix-lsp</code></td></tr>
@@ -664,7 +667,7 @@ single width selection.</p>
 <tr><td><code>auto-info</code></td><td>Whether to display infoboxes</td><td><code>true</code></td></tr>
 <tr><td><code>true-color</code></td><td>Set to <code>true</code> to override automatic detection of terminal truecolor support in the event of a false negative.</td><td><code>false</code></td></tr>
 </tbody></table>
-<p><code>[editor.filepicker]</code> section of the config. Sets options for file picker and global search. All but the last key listed in the default file-picker configuration below are IgnoreOptions: whether hidden files and files listed within ignore files are ignored by (not visible in) the helix file picker and global search. There is also one other key, <code>max-depth</code> available, which is not defined by default.</p>
+<p><code>[editor.file-picker]</code> section of the config. Sets options for file picker and global search. All but the last key listed in the default file-picker configuration below are IgnoreOptions: whether hidden files and files listed within ignore files are ignored by (not visible in) the helix file picker and global search. There is also one other key, <code>max-depth</code> available, which is not defined by default.</p>
 <table><thead><tr><th>Key</th><th>Description</th><th>Default</th></tr></thead><tbody>
 <tr><td><code>hidden</code></td><td>Enables ignoring hidden files.</td><td>true</td></tr>
 <tr><td><code>parents</code></td><td>Enables reading ignore files from parent directories.</td><td>true</td></tr>
@@ -838,6 +841,7 @@ over it and is merged into the default palette.</p>
 <li><code>repeat</code> - <code>for</code>, <code>while</code>, <code>loop</code></li>
 <li><code>import</code> - <code>import</code>, <code>export</code></li>
 <li><code>return</code></li>
+<li><code>exception</code></li>
 </ul>
 </li>
 <li><code>operator</code> - <code>or</code>, <code>in</code></li>
@@ -877,8 +881,9 @@ over it and is merged into the default palette.</p>
 <li><code>italic</code></li>
 <li><code>link</code>
 <ul>
-<li><code>url</code></li>
-<li><code>label</code></li>
+<li><code>url</code> - urls pointed to by links</li>
+<li><code>label</code> - non-url link references</li>
+<li><code>text</code> - url and image descriptions in links</li>
 </ul>
 </li>
 <li><code>quote</code></li>
